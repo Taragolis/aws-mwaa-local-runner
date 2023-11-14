@@ -1,0 +1,9 @@
+[mariadb]
+# Use MariaDB repo for installing mariadb client/develop libraries
+# which are use as dependency for apache-airflow-providers-mysql provider.
+# The mariadb-devel provided by AL2 conflicts with openssl11 which is required Python 3.10
+# so a newer version of the dependency must be installed from source.
+name = MariaDB
+baseurl = https://rpm.mariadb.org/10.11/rhel9-$basearch
+gpgkey= https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgcheck=1

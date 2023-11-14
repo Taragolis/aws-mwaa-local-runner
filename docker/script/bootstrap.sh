@@ -46,18 +46,7 @@ pip3 install $PIP_OPTION --upgrade 'pip<23'
 # openjdk is required for JDBC to work with Airflow
 dnf install -y java-17-amazon-corretto
 
-# Installing mariadb-devel dependency for apache-airflow-providers-mysql.
-# The mariadb-devel provided by AL2 conflicts with openssl11 which is required Python 3.10
-# so a newer version of the dependency must be installed from source.
-sudo mkdir mariadb_rpm
-sudo chown airflow /mariadb_rpm
-
-wget https://mirror.mariadb.org/yum/11.1.2/fedora38-amd64/rpms/MariaDB-common-11.1.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
-wget https://mirror.mariadb.org/yum/11.1.2/fedora38-amd64/rpms/MariaDB-shared-11.1.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
-wget https://mirror.mariadb.org/yum/11.1.2/fedora38-amd64/rpms/MariaDB-devel-11.1.2-1.fc38.$(uname -p).rpm -P /mariadb_rpm
-
-# install mariadb_devel and its dependencies
-sudo rpm -ivh /mariadb_rpm/*
+dnf install -y MariaDB-client MariaDB-shared MariaDB-devel
 
 sudo -u airflow pip3 install $PIP_OPTION --no-use-pep517 --constraint /constraints.txt poetry
 sudo -u airflow pip3 install $PIP_OPTION --constraint /constraints.txt cached-property
